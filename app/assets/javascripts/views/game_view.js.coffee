@@ -19,7 +19,7 @@ class @PP.Views.GameView extends Backbone.View
     event.preventDefault()
     @$('[data-action=start]').hide()
     @$('[data-action=finish]').show()
-    @$intructions.text('Stop the game when complete')
+    @$intructions.text('Game on, click finish once game is complete')
     @startAt = Date.now()
     @lockPlayers()
 
@@ -77,6 +77,8 @@ class @PP.Views.GameView extends Backbone.View
   scoresComplete: ->
     notADrawer = @$('[data-item=score-1]').val() isnt @$('[data-item=score-2]').val()
     complete = @$('[data-item=score-1]').val() isnt '' and @$('[data-item=score-1]').val() isnt ''
+    @$intructions.text('Someones got to win!') unless notADrawer
+    @$intructions.text('Both scores must be entered...') unless complete
     complete and notADrawer
 
   lockPlayers: ->

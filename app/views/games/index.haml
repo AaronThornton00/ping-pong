@@ -1,6 +1,6 @@
 .games
   .row
-    .offset-by-one.ten.columns
+    .offset-by-one.eight.columns
       %h5
         Registered games
       = link_to 'New game', new_game_path, class: 'button button-primary'
@@ -24,4 +24,3 @@
               %td= link_to player_2.first_name, user_path(player_2)
               %td= score(game, player_1, player_2)
               %td= duration(game.duration)
-
