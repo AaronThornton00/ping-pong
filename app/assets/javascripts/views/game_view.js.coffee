@@ -20,6 +20,7 @@ class @PP.Views.GameView extends Backbone.View
     @$('[data-action=start]').hide()
     @$('[data-action=finish]').show()
     @$intructions.text('Stop the game when complete')
+    @startAt = Date.now()
     @lockPlayers()
 
   finishGame: (event) ->
@@ -27,6 +28,7 @@ class @PP.Views.GameView extends Backbone.View
     @$('[data-action=finish]').hide()
     @$('[data-item=score]').show()
     @$intructions.text('Enter the scores')
+    @endAt = Date.now()
     @$('[data-item=score-1]').focus()
 
   loadPlayers: ($select, omition) ->
@@ -47,8 +49,21 @@ class @PP.Views.GameView extends Backbone.View
 
   registerGame: ->
     return unless @scoresComplete()
-    @$intructions.text('Registered, GG!')
-    document.location.href = '/games'
+    $.ajax
+      url: "/games"
+      type: 'POST'
+      data:
+        game:
+          start_at: @startAt
+          end_at: @endAt
+          player_1: { id: @$player1Select.val(), score: @$('[data-item=score-1]').val() }
+          player_2: { id: @$player2Select.val(), score: @$('[data-item=score-2]').val() }
+      success: (response, status, xhr) =>
+        @$intructions.text('Registered, GG!')
+        document.location.href = '/games'
+      error: ->
+        console.log 'error'
+
 
   initGame: ->
     @loadPlayers(@$player1Select, @players[1][1])
@@ -60,8 +75,9 @@ class @PP.Views.GameView extends Backbone.View
     @$intructions.text('Select players and start a game!')
 
   scoresComplete: ->
-    # debugger
-    @$('[data-item=score-1]').val() isnt '' and @$('[data-item=score-1]').val() isnt ''
+    notADrawer = @$('[data-item=score-1]').val() isnt @$('[data-item=score-2]').val()
+    complete = @$('[data-item=score-1]').val() isnt '' and @$('[data-item=score-1]').val() isnt ''
+    complete and notADrawer
 
   lockPlayers: ->
     @$player1Select.attr('disabled', true)

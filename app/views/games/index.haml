@@ -1,11 +1,27 @@
 .games
-  %h5
-    Registered games
-  %ul
-    - @games.each do |game|
-      - player_1 = game.players.first
-      - player_2 = game.players.last
-      %li
-        = "#{player_1.first_name} vs. #{player_2.first_name} - #{game.player_score(player_1)}:#{game.player_score(player_2)}"
+  .row
+    .offset-by-one.ten.columns
+      %h5
+        Registered games
+      = link_to 'New game', new_game_path, class: 'button button-primary'
+      = link_to 'Leaderboard', users_path, class: 'button'
+      %table
+        %thead
+          %tr
+            %th= 'Time'
+            %th= 'Player 1'
+            %th= 'Player 2'
+            %th= 'Score'
+            %th= 'Duration'
+        %tbody
+          - @games.each do |game|
+            - player_1 = game.players.first
+            - player_2 = game.players.last
+            -
+            %tr
+              %td= date_or_time(game.start_at)
+              %td= link_to player_1.first_name, user_path(player_1)
+              %td= link_to player_2.first_name, user_path(player_2)
+              %td= score(game, player_1, player_2)
+              %td= duration(game.duration)
 
-  = link_to 'New game', new_game_path, class: 'button button-primary'

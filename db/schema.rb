@@ -20,8 +20,11 @@ ActiveRecord::Schema.define(version: 20150405031757) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.datetime "start_at",  null: false
+    t.datetime "end_at",    null: false
+    t.integer  "duration",  null: false
+    t.integer  "winner_id"
+    t.integer  "looser_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,6 +1,27 @@
-- @users.each do |user|
-  %div
-    = user.first_name
-    = user.last_name
-    = user.dob
-    = link_to 'edit', edit_user_registration_path(user)
+.user
+  .row
+    .offset-by-one.ten.columns
+      %h5
+        Leaderboard
+      %table
+        %thead
+          %tr
+            %th= 'Player'
+            %th= 'Games played'
+            %th= 'Wins'
+            %th= 'Loses'
+            %th= 'Total time clocked'
+            %th= 'Time left to pro'
+        %tbody
+          - @users.each do |user|
+            - games = user.games
+            %tr
+              %td= user.first_name
+              %td= games.size
+              %td= user.number_of_wins
+              %td= user.number_of_losses
+              %td= duration(games.sum(:duration))
+              %td= "#{10000 - (games.sum(:duration)/360)} hrs"
+
+
+      = link_to 'Back to games', games_path, class: 'button'

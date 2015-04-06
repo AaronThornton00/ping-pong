@@ -1,0 +1,24 @@
+.user
+  .row
+    .offset-by-one.ten.columns
+      %h5
+        = @user.first_name
+        = @user.last_name
+      %table
+        %thead
+          %tr
+            %th= 'Games played'
+            %th= 'Wins'
+            %th= 'Loses'
+            %th= 'Total time clocked'
+            %th= 'Time left to pro'
+        %tbody
+          %tr
+            %td= @user.games.size
+            %td= @user.games.where(winner_id: @user.id).size
+            %td= @user.games.where(looser_id: @user.id).size
+            %td= duration(@user.games.sum(:duration))
+            %td= "#{10000 - (@user.games.sum(:duration)/360)} hrs"
+
+
+      = link_to 'Back to games', games_path, class: 'button'
