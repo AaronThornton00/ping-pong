@@ -13,9 +13,9 @@ class GamesController < ApplicationController
     @game           = Game.new
     player_1        = User.find(params[:game][:player_1][:id])
     player_2        = User.find(params[:game][:player_2][:id])
-    player_1_score  = params[:game][:player_1][:score]
-    player_2_score  = params[:game][:player_2][:score]
-    @game.players   = [player_1, player_2]
+    player_1_score  = params[:game][:player_1][:score].to_i
+    player_2_score  = params[:game][:player_2][:score].to_i
+    @game.players   = [player_2, player_1]
     @game.start_at  = convert_from_milliseconds(params[:game][:start_at])
     @game.end_at    = convert_from_milliseconds(params[:game][:end_at])
     @game.duration  = @game.end_at - @game.start_at

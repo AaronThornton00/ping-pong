@@ -17,7 +17,7 @@
           - @games.each do |game|
             - player_1 = game.players.first
             - player_2 = game.players.last
-            -
+
             %tr
               %td= date_or_time(game.start_at)
               %td= link_to player_1.first_name, user_path(player_1)

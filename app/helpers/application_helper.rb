@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def date_or_time(created_at)
-    created_at > Date.today.beginning_of_day ? created_at.strftime('%I:%M%P') : created_at.strftime('%d %b')
+    created_at > Date.today.beginning_of_day ? created_at.localtime.strftime('%I:%M%P') : created_at.localtime.strftime('%d %b')
   end
 
   def duration(duration)
