@@ -1,0 +1,11 @@
+.games
+  %h5
+    Registered games
+  %ul
+    - @games.each do |game|
+      - player_1 = game.players.first
+      - player_2 = game.players.last
+      %li
+        = "#{player_1.first_name} vs. #{player_2.first_name} - #{game.player_score(player_1)}:#{game.player_score(player_2)}"
+
+  = link_to 'New game', new_game_path, class: 'button button-primary'

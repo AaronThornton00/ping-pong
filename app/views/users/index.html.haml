@@ -1,0 +1,6 @@
+- @users.each do |user|
+  %div
+    = user.first_name
+    = user.last_name
+    = user.dob
+    = link_to 'edit', edit_user_registration_path(user)

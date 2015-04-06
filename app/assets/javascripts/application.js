@@ -13,4 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require lodash
+//= require backbone
+//= require main
+//= require_tree ./views/
+//= require_tree ./controllers/

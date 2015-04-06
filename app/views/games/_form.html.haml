@@ -1,0 +1,27 @@
+.game{ data: { item: 'game' } }
+  %h5{ data: { item: 'instructions' } }
+  .row
+    .offset-by-three.six.columns
+      .players
+        .row
+          .one-third.column
+            %select.u-full-width{ data: { action: 'select-player-1' } }
+          .one-third.column
+            vs
+          .one-third.column
+            %select.u-full-width{ data: { action: 'select-player-2' } }
+
+      .score{ data: { item: 'score' } }
+        %span
+          %input{ data: { item: 'score-1' } }
+          %input{ data: { item: 'score-2' } }
+        .register
+          = link_to 'Register game',  '#', class: 'button button-primary', data: { action: 'register' }
+          = link_to 'Cancel',  '#', class: 'button', data: { action: 'cancel' }
+      .actions
+        = link_to 'start',  '#', class: 'button button-primary', data: { action: 'start' }
+        = link_to 'finish', '#', class: 'button', data: { action: 'finish' }
+
+    - content_for :page_js do
+      :javascript
+        window.PP.properties.players = #{ @users.map{|user| [user.first_name, user.id]} };
